@@ -8,7 +8,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-      <div className="min-h-screen flex flex-col items-center">
+      <div className="min-h-screen flex flex-col items-center bg-base-300">
       <Navbar />
         <div className="w-full max-w-7xl flex flex-col gap-4">
         <Routes>
