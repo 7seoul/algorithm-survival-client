@@ -10,7 +10,7 @@ function App() {
       <BrowserRouter>
       <div className="min-h-screen flex flex-col items-center">
       <Navbar />
-        <div className="max-w-7xl flex flex-col gap-4">
+        <div className="w-full max-w-7xl flex flex-col gap-4">
         <Routes>
           <Route path='/' element={<></>} />
           <Route path='/login' element={<></>} />
