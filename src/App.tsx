@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { QueryClient,QueryClientProvider } from '@tanstack/react-query'
 import Navbar from '@/components/Navbar'
+import MainPage from '@/pages/MainPage'
 const queryClient = new QueryClient()
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <Navbar />
         <div className="w-full max-w-7xl flex flex-col gap-4">
         <Routes>
-          <Route path='/' element={<></>} />
+          <Route path='/' element={<MainPage></MainPage>} />
           <Route path='/login' element={<></>} />
           <Route path='/register' element={<></>} />
           <Route path='/forget-password' element={<></>} />
