@@ -9,7 +9,7 @@ function Navbar(){
     <div className="flex-none">
       <ul className="menu menu-horizontal px-1">
         <li><Link to='/groups'>Group</Link></li>
-        <li><Link to='/rank'>Rank</Link></li>
+        <li><Link to='/rank/groups/score'>Rank</Link></li>
         <li><Link to='/login'>Login</Link></li>
         <li><Link to='/register'>Register</Link></li>
       </ul>

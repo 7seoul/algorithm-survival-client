@@ -29,16 +29,24 @@ export interface GroupInfoType{
     streakRank : Number
 }
 
-interface MemberType{
+export interface MemberType{
     name : string
     handle : string
     streak : number
     score : number
 }
 
+export interface GroupRank{
+    groupName: string
+    _id: number
+    score : number
+    currentStreak: number
+    maxStreak: number
+}
+
 export interface GroupRankResponse{
     success : boolean
-    result : Array<groupType>
+    result : Array<GroupRank>
 }
 
 export interface GroupMainResponse{
@@ -55,4 +63,9 @@ export interface GroupInfoResponse{
 export interface GroupListResponse{
     success : boolean
     groups : Array<groupType>
+}
+
+export interface UserRankResponse{
+    success : boolean
+    result : Array<MemberType>
 }

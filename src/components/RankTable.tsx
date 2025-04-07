@@ -1,31 +1,21 @@
 import { getAvatarUrl } from '@/apis/apis'
 import { Calendar, Medal } from 'lucide-react'
 import { Link } from 'react-router'
+import { GroupRank, MemberType } from '@/types/GroupType'
 
 interface groupTableProps {
   datas : {
     type : 'group',
-    groupDatas : Array<groupRank>
+    groupDatas : Array<GroupRank>
   } | {
     type : 'user',
-    userDatas : Array<userRank>
+    userDatas : Array<MemberType>
   }
 }
 
-interface userRank{
-  name : string
-  handle : string
-  streak : number
-  score : number
-}
 
-interface groupRank{
-  groupName: string
-  _id: number
-  score : number
-  currentStreak: number
-  maxStreak: number
-}
+
+
 
 function RankTable({...props} : groupTableProps){
   return (
