@@ -1,9 +1,13 @@
-import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse } from "@/types/GroupType";
+import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse, UserRankResponse } from "@/types/GroupType";
 import ky from "ky";
 
 
 export const getGroupRank = async (type : 'score' | 'streak'):Promise<GroupRankResponse>=>{
   return await ky.get(`${import.meta.env.VITE_API_URL}/rankings/groups/${type}`).json()
+}
+
+export const getUserRank = async (type : 'score' | 'streak'):Promise<UserRankResponse> => {
+  return await ky.get(`${import.meta.env.VITE_API_URL}/rankings/users/${type}`).json() 
 }
 
 export const getGroupMain = async ():Promise<GroupMainResponse> => {

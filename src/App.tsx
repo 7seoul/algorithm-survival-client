@@ -5,6 +5,9 @@ import Navbar from '@/components/Navbar'
 import MainPage from '@/pages/MainPage'
 import GroupInfoPage from '@/pages/GroupInfoPage'
 import GroupPage from '@/pages/GroupPage'
+import RankPage from '@/pages/GroupRankPage'
+import GroupRankPage from '@/pages/GroupRankPage'
+import UserRankPage from './pages/UserRankPage'
 const queryClient = new QueryClient()
 
 function App() {
@@ -21,7 +24,8 @@ function App() {
           <Route path='/forget-password' element={<></>} />
           <Route path='/groups' element={<GroupPage></GroupPage>} />
           <Route path='/groups/:groupId' element={<GroupInfoPage></GroupInfoPage>} />
-          <Route path='/rank' element={<></>} />
+          <Route path='/rank/groups/:rankType' element={<GroupRankPage></GroupRankPage>} />
+          <Route path='/rank/users/:rankType' element={<UserRankPage></UserRankPage>} />
           <Route path='/*' element={<></>} />
         </Routes>
         </div>  
