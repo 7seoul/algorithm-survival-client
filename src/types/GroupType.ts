@@ -51,3 +51,8 @@ export interface GroupInfoResponse{
     success : boolean
     group : GroupInfoType
 }
+
+export interface GroupListResponse{
+    success : boolean
+    groups : Array<groupType>
+}
