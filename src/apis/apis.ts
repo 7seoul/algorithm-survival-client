@@ -1,4 +1,4 @@
-import { GroupRankResponse, GroupMainResponse, GroupInfoResponse } from "@/types/GroupType";
+import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse } from "@/types/GroupType";
 import ky from "ky";
 
 
@@ -16,4 +16,8 @@ export const getGroupInfo = async (id:string) : Promise<GroupInfoResponse> => {
 
 export const getAvatarUrl = (id:number) : string =>{
   return `https://api.dicebear.com/9.x/thumbs/svg?seed=${id*10}&scale=80`
+}
+
+export const getGroupList = async ():Promise<GroupListResponse> => {
+  return await ky.get(`${import.meta.env.VITE_API_URL}/groups`).json()
 }
