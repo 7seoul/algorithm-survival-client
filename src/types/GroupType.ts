@@ -1,46 +1,46 @@
 export interface groupType{
-    _id : Number,
-    groupName : String,
-    description: String,
-    score : Number,
-    maxStreak : Number,
-    size: Number
+    _id : number,
+    groupName : string,
+    description: string,
+    score : number,
+    maxStreak : number,
+    size: number
 }
 
 export interface GroupInfoType{
-    _id : Number
-    groupName : String
+    _id : number
+    groupName : string
     admin : {
-        handle : String
-        name : String
+        handle : string
+        name : string
     }
     memberData : Array<MemberType>
-    description : String
-    score : Number
-    initialStreak: Number
-    currentStreak: Number
+    description : string
+    score : number
+    initialStreak: number
+    currentStreak: number
     createdAt: Date
     updatedAt: Date
-    size: Number
-    maxStreak: Number
-    todayAllSolved: Boolean
+    size: number
+    maxStreak: number
+    todayAllSolved: boolean
     todaySolvedMembers: Array<any>
 }
 
 interface MemberType{
-    name : String
-    handle : String
-    streak : Number
-    score : Number
+    name : string
+    handle : string
+    streak : number
+    score : number
 }
 
 export interface GroupRankResponse{
-    success : Boolean
+    success : boolean
     result : Array<groupType>
 }
 
 export interface GroupMainResponse{
-    success : Boolean
+    success : boolean
     score : Array<groupType>
     streak : Array<groupType>
 }
