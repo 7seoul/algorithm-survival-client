@@ -7,12 +7,17 @@ import { Link } from 'react-router'
 
 
 function MainPage(){
-    const {data} = useQuery<GroupMainResponse>({
-        queryKey: ['test'],
+    const {data, isLoading} = useQuery<GroupMainResponse>({
+        queryKey: ['mainGroup'],
         queryFn: async () =>(await getGroupMain()),
         staleTime: 1000 * 10
     })
 
+    if (isLoading){
+    return (<div className='w-full h-dvh flex justify-center items-center'>
+        <span className="items-center loading loading-spinner loading-xl"></span>
+    </div>)
+    }
 
     return (<>
         <Hero></Hero>
@@ -20,7 +25,7 @@ function MainPage(){
         <section className="flex justify-between gap-4">
         {data?.success === true && (
             data.score.map((group)=>(
-                <GroupCard data={group} />
+                <GroupCard key={group._id} data={group} />
             ))
         )}
         </section>
@@ -29,7 +34,7 @@ function MainPage(){
         {
             data?.success === true && (
                 data.streak.map((group)=>(
-                    <GroupCard data={group} />
+                    <GroupCard key={group._id} data={group} />
                 ))
             )
         }

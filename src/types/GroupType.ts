@@ -19,12 +19,14 @@ export interface GroupInfoType{
     score : number
     initialStreak: number
     currentStreak: number
-    createdAt: Date
-    updatedAt: Date
+    createdAt: string
+    updatedAt: string
     size: number
     maxStreak: number
     todayAllSolved: boolean
     todaySolvedMembers: Array<any>
+    scoreRank : Number
+    streakRank : Number
 }
 
 interface MemberType{
@@ -43,4 +45,9 @@ export interface GroupMainResponse{
     success : boolean
     score : Array<groupType>
     streak : Array<groupType>
+}
+
+export interface GroupInfoResponse{
+    success : boolean
+    group : GroupInfoType
 }
