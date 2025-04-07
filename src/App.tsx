@@ -3,41 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 import { QueryClient,QueryClientProvider } from '@tanstack/react-query'
 import Navbar from '@/components/Navbar'
 import MainPage from '@/pages/MainPage'
-import GroupInfoCard from '@/components/GroupInfoCard'
+import GroupInfoPage from '@/pages/GroupInfoPage'
 const queryClient = new QueryClient()
-
-const group = {
-  _id: 1,
-  groupName: "알고리즘스터디그룹",
-  admin: {
-      handle: "gonudayo",
-      name: "김건우"
-  },
-  memberData: [
-      {
-          name: "이름수정",
-          handle: "gonudayo",
-          streak: 3,
-          score: 4
-      },
-      {
-          name: "xiaowuc1",
-          handle: "xiaowuc1",
-          streak: 0,
-          score: 0
-      }
-  ],
-  description: "테스트 설명",
-  score: 6009,
-  initialStreak: 0,
-  currentStreak: 0,
-  createdAt: new Date('2025-04-04T03:48:56.836Z'),
-  updatedAt: new Date('2025-04-06T21:00:00.590Z'),
-  size: 2,
-  maxStreak: 0,
-  todayAllSolved: false,
-  todaySolvedMembers: []
-}
 
 function App() {
   return (
@@ -51,8 +18,8 @@ function App() {
           <Route path='/login' element={<></>} />
           <Route path='/register' element={<></>} />
           <Route path='/forget-password' element={<></>} />
-          <Route path='/group' element={<></>} />
-          <Route path='/group:groupId' element={<></>} />
+          <Route path='/groups' element={<></>} />
+          <Route path='/groups/:groupId' element={<GroupInfoPage></GroupInfoPage>} />
           <Route path='/rank' element={<></>} />
           <Route path='/*' element={<></>} />
         </Routes>

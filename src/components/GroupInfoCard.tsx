@@ -17,7 +17,7 @@ function GroupInfoCard({data} : GroupInfoProps){
       <div className="card-body gap-4">
         <div className='flex flex-col'>
           <h2 className="card-title">{data.groupName}</h2>
-          <p className='text-base-content/70'>{data.description}</p>
+          <div className='text-base-content/70 break-words'>{data.description}</div>
         </div>
         <ul className='flex flex-col gap-2 items-center text-sm font-medium'>
           <li className="flex justify-between flex-row w-full">
@@ -40,6 +40,20 @@ function GroupInfoCard({data} : GroupInfoProps){
               <span>생성일</span>
             </div>
             <span>{`${new Date(data.createdAt).getFullYear()}년${new Date(data.createdAt).getMonth()}월${new Date(data.createdAt).getDate()}일`}</span>
+          </li> 
+          <li className="flex justify-between flex-row w-full">
+            <div className='flex flex-row gap-1 items-center'>
+              <Medal className='w-4 h-4 text-success'></Medal>
+              <span>그룹 점수 랭킹</span>
+            </div>
+            <span>{`${data.scoreRank}위`}</span>
+          </li> 
+          <li className="flex justify-between flex-row w-full">
+            <div className='flex flex-row gap-1 items-center'>
+              <Calendar className='w-4 h-4 text-success'></Calendar>
+              <span>그룹 스트릭랭킹</span>
+            </div>
+            <span>{`${data.streakRank}위`}</span>
           </li> 
           <li className="flex justify-between flex-row w-full">
             <div className='flex flex-row gap-1 items-center'>
