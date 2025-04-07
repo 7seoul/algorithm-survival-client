@@ -1,6 +1,7 @@
 import { Medal, Calendar, User } from 'lucide-react'
 import { Link } from 'react-router'
 import { groupType } from '@/types/GroupType'
+import { getAvatarUrl } from '@/apis/apis'
 
 interface GroupCardProps{
   data: groupType
@@ -13,7 +14,7 @@ function GroupCard({ data } : GroupCardProps ){
         <div className="card-body gap-6">
           <div className='flex flex-row gap-3'>
             <figure className='avatar'>
-              <div className="w-16 rounded"><img src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${(data._id)*10}&scale=80`} alt="group_img" />
+              <div className="w-16 rounded"><img src={getAvatarUrl(data._id)} alt="group_img" />
               </div>
             </figure>
             <div className='flex flex-col gap-3 justify-center'>

@@ -1,3 +1,4 @@
+import { getAvatarUrl } from '@/apis/apis'
 import { GroupInfoType } from '@/types/GroupType'
 import { Calendar, Medal, User } from 'lucide-react'
 
@@ -10,7 +11,7 @@ function GroupInfoCard({data} : GroupInfoProps){
   return(
     <div className="card w-96 bg-base-100 card-xl shadow-sm">
       <figure className='avatar'>
-        <div className="w-72 rounded mt-7"><img src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${data._id*10}&scale=80`} alt="group_img" />
+        <div className="w-full rounded px-8 pt-8"><img src={getAvatarUrl(data._id)} alt="group_img" />
         </div>
       </figure>
       <div className="card-body gap-4">
@@ -38,7 +39,7 @@ function GroupInfoCard({data} : GroupInfoProps){
               <Calendar className='w-4 h-4 text-success'></Calendar>
               <span>생성일</span>
             </div>
-            <span>{`${data.createdAt.getFullYear()}년${data.createdAt.getMonth()}월${data.createdAt.getDate()}일`}</span>
+            <span>{`${new Date(data.createdAt).getFullYear()}년${new Date(data.createdAt).getMonth()}월${new Date(data.createdAt).getDate()}일`}</span>
           </li> 
           <li className="flex justify-between flex-row w-full">
             <div className='flex flex-row gap-1 items-center'>
