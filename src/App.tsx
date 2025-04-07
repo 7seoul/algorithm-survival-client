@@ -5,16 +5,16 @@ import Navbar from '@/components/Navbar'
 import MainPage from '@/pages/MainPage'
 import GroupInfoPage from '@/pages/GroupInfoPage'
 import GroupPage from '@/pages/GroupPage'
-import RankPage from '@/pages/GroupRankPage'
 import GroupRankPage from '@/pages/GroupRankPage'
-import UserRankPage from './pages/UserRankPage'
+import UserRankPage from '@/pages/UserRankPage'
+import Foot from '@/components/Footer'
 const queryClient = new QueryClient()
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-      <div className="min-h-screen flex flex-col items-center bg-base-300">
+      <div className="min-h-screen flex flex-col items-center bg-base-300 pb-12">
       <Navbar />
         <div className="w-full max-w-6xl flex flex-col gap-6">
         <Routes>
@@ -30,6 +30,7 @@ function App() {
         </Routes>
         </div>  
       </div>
+      <Foot />
       </BrowserRouter>
     </QueryClientProvider>
   )
