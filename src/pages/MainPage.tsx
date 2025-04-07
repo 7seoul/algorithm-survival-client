@@ -1,27 +1,40 @@
 import Hero from "@/components/Hero"
 import GroupCard from "@/components/GroupCard"
-import { getGroupRank } from "@/apis/apis"
+import { getGroupMain } from "@/apis/apis"
 import { useQuery } from "@tanstack/react-query"
-import { groupType } from "@/types/GroupType"
+import { GroupMainResponse } from "@/types/GroupType"
+import { Link } from 'react-router'
 
-interface GroupResponse{
-    success : Boolean
-    result : Array<groupType>
-}
 
 function MainPage(){
-    const {data} = useQuery<GroupResponse>({
+    const {data} = useQuery<GroupMainResponse>({
         queryKey: ['test'],
-        queryFn: async () =>(await getGroupRank('score')),
+        queryFn: async () =>(await getGroupMain()),
         staleTime: 1000 * 10
     })
+
+
     return (<>
         <Hero></Hero>
-        <section className="flex flex-wrap justify-between">
-        {data?.success == true && data.result.map((group)=>(
-            <GroupCard data={group} />
-        ))} 
+        <h2 className='text-1xl font-bold'>그룹 점수 TOP3</h2>
+        <section className="flex justify-between gap-4">
+        {data?.success === true && (
+            data.score.map((group)=>(
+                <GroupCard data={group} />
+            ))
+        )}
         </section>
+        <h2 className='text-1xl font-bold'>그룹 생존 스트릭 TOP3</h2>
+        <section className="flex justify-between gap-4">
+        {
+            data?.success === true && (
+                data.streak.map((group)=>(
+                    <GroupCard data={group} />
+                ))
+            )
+        }
+        </section>
+        <button className='btn btn-primary w-2xs self-center'><Link to={'/groups/streak'}>전체 그룹 보기</Link></button>
     </>)
 }
 
