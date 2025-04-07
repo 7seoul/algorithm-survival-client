@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 
 function Navbar(){
   return (
-  <div className="navbar bg-base-200 shadow-sm sticky top-0">
+  <div className="navbar bg-base-200 shadow-sm sticky top-0 z-50">
     <div className="flex-1">
       <Link className="btn btn-ghost text-xl" to='/'>Algorithm_Survival</Link>
     </div>
