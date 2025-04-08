@@ -39,7 +39,7 @@ function MainPage(){
             )
         }
         </section>
-        <button className='btn btn-primary w-2xs self-center'><Link to={'/groups/streak'}>전체 그룹 보기</Link></button>
+        <Link className='btn btn-primary w-2xs self-center' to={'/groups'}>전체 그룹 보기</Link>
     </>)
 }
 

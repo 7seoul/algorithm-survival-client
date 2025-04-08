@@ -15,7 +15,7 @@ function Hero(){
           <p className="mb-5">
             알고리즘을 풀어, 그룹에서 살아남으세요
           </p>
-          <button className="btn btn-primary"><Link to="/group">생존 그룹 찾으러 가기</Link></button>
+          <Link className='btn btn-primary' to="/groups">생존 그룹 찾으러 가기</Link>
         </div>
       </div>
     </div>
