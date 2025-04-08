@@ -1,20 +1,31 @@
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useMutation } from "@tanstack/react-query"
 import { authLogin } from "@/apis/apis"
+import useAuthStore from '@/stores/authStore'
+import { useNavigate } from 'react-router'
 
 export interface LoginFromData{
   handle : string
   password : string
 }
 
-// const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$&*?!%])[A-Za-z\d!@$%&*?]{8,15}$/
   
-export interface LoginResponse{
-  success : boolean
-  message ?: string
+export type LoginResponse = SuccessResponse | ErrorResponse
+
+interface SuccessResponse{
+  success : true
+  user: {
+    handle : string,
+    name : string,
+  }
+}
+
+interface ErrorResponse{
+  success : false
+  message : string
 }
 
 const userSchema = z.object({
@@ -24,12 +35,12 @@ const userSchema = z.object({
   password : z
     .string()
     .min(8, {message: '비밀번호는 8글자 이상입니다.'})
-    // .regex(passwordRegex, {message: "비밀번호는 영문, 숫자, 특수문자(~!@#$%^&*)가 모두 조합되어 있습니다다."}),
 })
 
 type userType = z.infer<typeof userSchema>
 
 function LoginPage(){
+  const navigate = useNavigate()
   const [errorMessage, setErrorMesssage] = useState<string>('')
   const { register, handleSubmit, formState:{errors} } = useForm<userType>({
     resolver: zodResolver(userSchema),
@@ -49,7 +60,12 @@ function LoginPage(){
         onSuccess: (data) => {
           console.log(data)
           if (data.success === true){
-            
+            useAuthStore.setState({
+              isLogin : true,
+              userHandle : data.user.handle,
+              userName : data.user.name,
+            })
+            navigate('/')
           }
           else{
             setErrorMesssage(data.message ? data.message : '')
