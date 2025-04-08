@@ -4,29 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useMutation } from "@tanstack/react-query"
 import { authLogin } from "@/apis/apis"
-import useAuthStore from '@/stores/authStore'
+import { useAuthStore } from '@/stores/authStore'
 import { useNavigate } from 'react-router'
+import { LoginFromData } from '@/types/AuthTypes'
 
-export interface LoginFromData{
-  handle : string
-  password : string
-}
 
-  
-export type LoginResponse = SuccessResponse | ErrorResponse
-
-interface SuccessResponse{
-  success : true
-  user: {
-    handle : string,
-    name : string,
-  }
-}
-
-interface ErrorResponse{
-  success : false
-  message : string
-}
 
 const userSchema = z.object({
   handle : z
