@@ -1,10 +1,10 @@
-import { LoginFromData, LoginResponse } from "@/pages/LoginPage";
+import { LoginFromData, LoginResponse, LogoutResponse } from "@/types/AuthTypes";
 import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse, UserRankResponse } from "@/types/GroupType";
 import ky from "ky";
 
 const api = ky.create({
   prefixUrl: "/api", 
-  credentials: "include", 
+  credentials: "include",
 });
 
 export const getGroupRank = async (type: 'score' | 'streak'): Promise<GroupRankResponse> => {
@@ -35,4 +35,8 @@ export const authLogin = async (inputData : LoginFromData): Promise<LoginRespons
   return await api.post(`auth/login`,{
     json: inputData
   }).json()
+}
+
+export const authLogout = async (): Promise<LogoutResponse> => {
+  return await api.post(`auth/logout`).json()
 }
