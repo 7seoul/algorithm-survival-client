@@ -8,6 +8,7 @@ import GroupPage from '@/pages/GroupPage'
 import GroupRankPage from '@/pages/GroupRankPage'
 import UserRankPage from '@/pages/UserRankPage'
 import Foot from '@/components/Footer'
+import LoginPage from '@/pages/LoginPage'
 const queryClient = new QueryClient()
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <div className="w-full max-w-6xl flex flex-col gap-6">
         <Routes>
           <Route path='/' element={<MainPage></MainPage>} />
-          <Route path='/login' element={<></>} />
+          <Route path='/login' element={<LoginPage></LoginPage>} />
           <Route path='/register' element={<></>} />
           <Route path='/forget-password' element={<></>} />
           <Route path='/groups' element={<GroupPage></GroupPage>} />
