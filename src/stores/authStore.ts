@@ -1,4 +1,4 @@
-import { createStore } from 'zustand'
+import { createStore, useStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AuthStore {
@@ -12,7 +12,7 @@ interface AuthStore {
   setUserName : (userName : string) => void
 }
 
-const useAuthStore = createStore(
+export const useAuthStore = createStore(
   persist<AuthStore>(
     (set) => ({
       isLogin : false,
@@ -33,4 +33,4 @@ const useAuthStore = createStore(
   )
 )
 
-export default useAuthStore
+export const useAuthStoreHook = () => useStore(useAuthStore)
