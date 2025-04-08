@@ -7,7 +7,7 @@ function Navbar(){
   return (
   <div className="navbar bg-base-200 shadow-sm sticky top-0 z-50">
     <div className="flex-1">
-      <Link className="btn btn-ghost text-xl" to='/'>Algorithm_Survival</Link>
+      <Link className="btn btn-ghost text-xl" to='/'>SurvivAlgo</Link>
     </div>
     <div className="flex-none">
       <ul className="menu menu-horizontal px-1">

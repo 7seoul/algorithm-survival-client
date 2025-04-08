@@ -11,7 +11,7 @@ function Hero(){
       <div className="hero-overlay"></div>
       <div className="hero-content text-neutral-content text-center">
         <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold">Algorithm Survival</h1>
+          <h1 className="mb-5 text-5xl font-bold">SurvivAlgo</h1>
           <p className="mb-5">
             알고리즘을 풀어, 그룹에서 살아남으세요
           </p>
