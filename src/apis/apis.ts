@@ -1,3 +1,4 @@
+import { LoginFromData, LoginResponse } from "@/pages/LoginPage";
 import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse, UserRankResponse } from "@/types/GroupType";
 import ky from "ky";
 
@@ -28,4 +29,10 @@ export const getGroupList = async (): Promise<GroupListResponse> => {
 
 export const getAvatarUrl = (id: number): string => {
   return `https://api.dicebear.com/9.x/thumbs/svg?seed=${id * 10}&scale=80`;
+}
+
+export const authLogin = async (inputData : LoginFromData): Promise<LoginResponse> => {
+  return await api.post(`auth/login`,{
+    json: inputData
+  }).json()
 }
