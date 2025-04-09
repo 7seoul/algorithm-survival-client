@@ -1,4 +1,4 @@
-export interface groupType{
+export type groupType = {
     _id : number,
     groupName : string,
     description: string,
@@ -7,13 +7,25 @@ export interface groupType{
     size: number
 }
 
-export interface GroupInfoType{
+export type GroupRank = {
+    groupName: string
+    _id: number
+    score : number
+    currentStreak: number
+    maxStreak: number
+}
+
+export type GroupInfoType = {
     _id : number
     groupName : string
     admin : {
         handle : string
         name : string
     }
+    applications: Array<{
+        handle : string
+        name : string
+    }>
     memberData : Array<MemberType>
     description : string
     score : number
@@ -25,47 +37,53 @@ export interface GroupInfoType{
     maxStreak: number
     todayAllSolved: boolean
     todaySolvedMembers: Array<any>
-    scoreRank : Number
-    streakRank : Number
+    scoreRank : number
+    streakRank : number
+    isMember : boolean
 }
 
-export interface MemberType{
+export type MemberType = {
     name : string
     handle : string
     streak : number
     score : number
 }
 
-export interface GroupRank{
-    groupName: string
-    _id: number
-    score : number
-    currentStreak: number
-    maxStreak: number
-}
 
-export interface GroupRankResponse{
-    success : boolean
+
+export type GroupRankResponse = ResponseBase<{
     result : Array<GroupRank>
-}
+}>
 
-export interface GroupMainResponse{
-    success : boolean
+
+export type GroupMainResponse = ResponseBase<{
     score : Array<groupType>
     streak : Array<groupType>
-}
+}>
 
-export interface GroupInfoResponse{
-    success : boolean
+
+export type GroupInfoResponse = ResponseBase<{
     group : GroupInfoType
-}
+}>
 
-export interface GroupListResponse{
-    success : boolean
+export type GroupListResponse = ResponseBase<{
     groups : Array<groupType>
+}>
+
+export type UserRankResponse = ResponseBase<{
+    result : Array<MemberType>
+}>
+
+type SuccessResponse = {
+    success : true
 }
 
-export interface UserRankResponse{
-    success : boolean
-    result : Array<MemberType>
+
+type FailResponse = {
+    success : false
+    message : string
 }
+
+type ResponseBase<T = undefined> = T extends undefined 
+    ? FailResponse
+    : SuccessResponse & T
