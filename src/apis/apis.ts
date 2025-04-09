@@ -40,3 +40,7 @@ export const authLogin = async (inputData : LoginFromData): Promise<LoginRespons
 export const authLogout = async (): Promise<LogoutResponse> => {
   return await api.post(`auth/logout`).json()
 }
+
+export const joinGroup = async (groupId:number): Promise<GroupInfoResponse> => {
+  return await api.post(`groups/${groupId}/applications`).json()
+}
