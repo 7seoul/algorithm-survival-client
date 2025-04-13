@@ -29,9 +29,7 @@ export type GroupInfoType = {
     memberData : Array<MemberType>
     description : string
     score : number
-    initialStreak: number
     currentStreak: number
-    createdAt: string
     updatedAt: string
     size: number
     maxStreak: number
@@ -47,9 +45,29 @@ export type MemberType = {
     handle : string
     streak : number
     score : number
+    imgSrc : string
 }
 
-
+type UserType = {
+    _id: string,
+    name: string,
+    handle: string,
+    joinedGroupList: Array<
+        {
+            _id: number,
+            groupName: string
+        }
+        >
+    maxStreak: number,
+    initialStreak: number,
+    currentStreak: number,
+    initialSolved: number,
+    currentSolved: number,
+    score: number,
+    tier: number,
+    imgSrc: string,
+    updatedAt: string
+}
 
 export type GroupRankResponse = ResponseBase<{
     result : Array<GroupRank>
@@ -74,6 +92,10 @@ export type UserRankResponse = ResponseBase<{
     result : Array<MemberType>
 }>
 
+export type CheckUserResponse = ResponseBase<{
+    user: UserType
+}>
+
 type SuccessResponse = {
     success : true
 }
@@ -84,6 +106,9 @@ type FailResponse = {
     message : string
 }
 
-type ResponseBase<T = undefined> = T extends undefined 
+export type ResponseBase<T = undefined> = T extends undefined 
     ? FailResponse
     : SuccessResponse & T
+
+
+

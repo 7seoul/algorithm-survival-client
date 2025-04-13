@@ -1,6 +1,7 @@
 import { LoginFromData, LoginResponse, LogoutResponse } from "@/types/AuthTypes";
-import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse, UserRankResponse } from "@/types/GroupType";
+import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse, UserRankResponse, CheckUserResponse } from "@/types/GroupType";
 import ky from "ky";
+
 
 const api = ky.create({
   prefixUrl: "/api", 
@@ -43,4 +44,8 @@ export const authLogout = async (): Promise<LogoutResponse> => {
 
 export const joinGroup = async (groupId:number): Promise<GroupInfoResponse> => {
   return await api.post(`groups/${groupId}/applications`).json()
+}
+
+export const checkUser = async ():Promise<CheckUserResponse> => {
+  return await api.get(`auth/me`).json()
 }
