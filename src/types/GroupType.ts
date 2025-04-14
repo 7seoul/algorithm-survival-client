@@ -30,6 +30,7 @@ export type GroupInfoType = {
     description : string
     score : number
     currentStreak: number
+    createdAt : string
     updatedAt: string
     size: number
     maxStreak: number
@@ -106,9 +107,4 @@ type FailResponse = {
     message : string
 }
 
-export type ResponseBase<T = undefined> = T extends undefined 
-    ? FailResponse
-    : SuccessResponse & T
-
-
-
+export type ResponseBase<T = undefined> = SuccessResponse & T | FailResponse
