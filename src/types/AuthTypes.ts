@@ -8,7 +8,19 @@ export interface LoginFromData{
   password : string
 }
 
-  
+export type SignUpResponse = SuccessResponse | ErrorResponse
+
+export type SignUpFormData = {
+  handle : string
+  name : string
+  password : string
+}
+
+export type SignUpTokenResponse = {
+  success : true
+  verificationCode : string
+} | ErrorResponse
+
 export type LoginResponse = SuccessResponse | ErrorResponse
 
 interface SuccessResponse{

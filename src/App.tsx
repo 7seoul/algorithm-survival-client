@@ -1,4 +1,4 @@
-import './App.css'
+import '@/App.css'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { QueryClient,QueryClientProvider } from '@tanstack/react-query'
 import Navbar from '@/components/Navbar'
@@ -9,6 +9,9 @@ import GroupRankPage from '@/pages/GroupRankPage'
 import UserRankPage from '@/pages/UserRankPage'
 import Foot from '@/components/Footer'
 import LoginPage from '@/pages/LoginPage'
+import SignUpPage from '@/pages/SignUpPage'
+
+
 const queryClient = new QueryClient()
 
 function App() {
@@ -21,7 +24,7 @@ function App() {
         <Routes>
           <Route path='/' element={<MainPage></MainPage>} />
           <Route path='/login' element={<LoginPage></LoginPage>} />
-          <Route path='/register' element={<></>} />
+          <Route path='/signup' element={<SignUpPage></SignUpPage>} />
           <Route path='/forget-password' element={<></>} />
           <Route path='/groups' element={<GroupPage></GroupPage>} />
           <Route path='/groups/:groupId' element={<GroupInfoPage></GroupInfoPage>} />

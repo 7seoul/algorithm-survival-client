@@ -1,4 +1,4 @@
-import { LoginFromData, LoginResponse, LogoutResponse } from "@/types/AuthTypes";
+import { LoginFromData, LoginResponse, LogoutResponse, SignUpFormData, SignUpTokenResponse } from "@/types/AuthTypes";
 import { GroupRankResponse, GroupMainResponse, GroupInfoResponse, GroupListResponse, UserRankResponse, CheckUserResponse } from "@/types/GroupType";
 import ky from "ky";
 
@@ -52,4 +52,16 @@ export const checkUser = async ():Promise<CheckUserResponse> => {
 
 export const acceptGroup = async ({groupId, handle} : {groupId : number, handle : string}):Promise<GroupInfoResponse> => {
   return await api.post(`groups/${groupId}/applications/${handle}/accept`).json()
+}
+
+export const getSignUpToken = async (inputData : {handle: string}) : Promise<SignUpTokenResponse> => {
+  return await api.post('auth/code', {
+    json: inputData
+  }).json()
+}
+
+export const SignUp = async (inputData : SignUpFormData) : Promise<LoginResponse> => {
+  return await api.post('auth/register', {
+    json: inputData
+  }).json()
 }
