@@ -65,3 +65,9 @@ export const SignUp = async (inputData : SignUpFormData) : Promise<LoginResponse
     json: inputData
   }).json()
 }
+
+export const createGroup = async (inputData : {groupName : string, description: string}) : Promise<GroupInfoResponse> => {
+  return await api.post('groups', {
+    json: inputData
+  }).json()
+}
