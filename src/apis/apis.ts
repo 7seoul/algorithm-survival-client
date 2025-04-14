@@ -49,3 +49,7 @@ export const joinGroup = async (groupId:number): Promise<GroupInfoResponse> => {
 export const checkUser = async ():Promise<CheckUserResponse> => {
   return await api.get(`auth/me`).json()
 }
+
+export const acceptGroup = async ({groupId, handle} : {groupId : number, handle : string}):Promise<GroupInfoResponse> => {
+  return await api.post(`groups/${groupId}/applications/${handle}/accept`).json()
+}

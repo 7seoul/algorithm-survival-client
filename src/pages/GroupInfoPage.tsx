@@ -1,12 +1,14 @@
-import { getGroupInfo } from '@/apis/apis'
+import { acceptGroup, getGroupInfo } from '@/apis/apis'
 import GroupInfoCard from '@/components/GroupInfoCard'
 import GroupJoinButton from '@/components/GroupJoinButton'
+import Modal from '@/components/Modal'
 import RankTable from '@/components/RankTable'
 import { useAuthStoreHook } from '@/stores/authStore'
 import { GroupInfoResponse,  } from '@/types/GroupType'
-import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useCallback, useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
+import { ChevronLeft } from 'lucide-react'
 
 type paramsType = {
   groupId : string
@@ -14,15 +16,36 @@ type paramsType = {
 
 function GroupInfoPage(){
   const [type, setType] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const { userHandle, isLogin } = useAuthStoreHook()
   const {groupId} = useParams() as paramsType
-  const {data, isLoading} = useQuery<GroupInfoResponse>({
-          queryKey: [`info${groupId}`],
+  const {data, isLoading, refetch} = useQuery<GroupInfoResponse>({
+          queryKey: [`group/info/${groupId}`],
           queryFn: async () =>(await getGroupInfo(groupId)),
           staleTime: 1000 * 10
       })
+  const navigate = useNavigate()
+  const mutation = useMutation({
+    mutationKey: [`Accept join`],
+    mutationFn: acceptGroup
+  })
 
-  console.log(data)
+  const handleAccept = useCallback((user:{handle : string, name: string})=>{
+    if(data?.success === true){
+      mutation.mutate({handle:user.handle, groupId : data.group._id},{
+        onSuccess : (data)=>{
+          if (data.success === true){
+            refetch()
+            alert('승인되었습니다.')
+          }
+          else {
+            refetch()
+            alert('예기치 못한 에러가 발생했습니다.')
+          }
+        }
+      })
+    }
+  },[data])
 
   if (isLoading){
     return (<div className='w-full h-dvh flex justify-center items-center'>
@@ -31,15 +54,15 @@ function GroupInfoPage(){
   }
 
   return(
-    <section className='flex flex-row w-full justify-between gap-4 mt-6'>
-      {data?.success === true && (
+    <section className='flex flex-col w-full gap-4 mt-4'>
+    {data?.success === true && (
       <>
-      <div className="w-fit ">
-        <GroupInfoCard data={data?.group}></GroupInfoCard>
-      </div>
-      
       <div className='w-full'>
-        <div className='w-full flex justify-end mb-4 gap-2'>
+        <div className='w-full flex justify-between gap-2'>
+          <button className='btn btn-square' onClick={()=>{navigate(-1)}}>
+            <ChevronLeft />
+          </button>
+          <div className='flex gap-2'>
           { isLogin && (
             <>
             {
@@ -49,23 +72,64 @@ function GroupInfoPage(){
             }
             {
               data.group.admin.handle === userHandle && (
-                <button className='w-fit btn btn-success'>
-                  그룹 신청 목록 보기
-                </button>
+                <>
+                  <button className='btn btn-soft btn-success' onClick={()=>{setIsOpen(true)}}>그룹 신청 목록</button>
+                  <Modal isOpen={isOpen} onClose={()=>{setIsOpen(false)}}>
+                    { data.group.applications && data.group.applications.length > 0 ? (
+                      <div className="overflow-x-auto bg-base-100 min-w-96">
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th className='text-center'>이름</th>
+                            <th className='text-center'>참가 수락</th>
+                          </tr>
+                        </thead>
+                      <tbody>
+                        {data.group.applications.map((user, idx)=>(
+                          <tr key={idx}>
+                            <th>{idx + 1}</th>
+                            <td className='text-center'>{user.name}</td>
+                            <td className='flex justify-center gap-2'>
+                              {isLoading ? 
+                                <span className="items-center loading loading-spinner loading-xl"></span>
+                                : <button className='btn btn-soft btn-success' onClick={()=>handleAccept(user)}>수락</button>
+                              }
+                              {/* <button className='btn btn-soft btn-error'>거절</button> */}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      </table>
+                      </div>
+                    ) :(
+                      <h1 className='p-12 text-3xl'>신청인이 없습니다.</h1>
+                    ) }
+                  </Modal>
+                </>
               )
             }
             </>
           )}
           
-          <button className='btn btn-success' onClick={()=>{setType(value => !value)}}>
+          <button className='btn btn-soft btn-success' onClick={()=>{setType(value => !value)}}>
             {type ? 
-              <div className="">점수 순으로 보기</div> : 
-              <div className="">스트릭 순으로 보기</div>
+              <div>스트릭 순</div> :
+              <div>점수 순</div>  
             }
           </button>
+          </div>
         </div>
-        <RankTable datas={{type: 'user', userDatas: data.group.memberData} }>
-        </RankTable>
+      </div>
+
+      <div className='flex flex-row w-full justify-between gap-4'>
+        <article className="w-fit ">
+          <GroupInfoCard data={data?.group}></GroupInfoCard>
+        </article>
+        <article className="w-full">
+          <RankTable datas={{type: 'user', userDatas: type ? data.group.memberData.sort((a,b)=>b.streak-a.streak) : data.group.memberData.sort((a,b)=>b.score - a.score) }}>
+          </RankTable>
+        </article>
       </div>
       </>)
       }
