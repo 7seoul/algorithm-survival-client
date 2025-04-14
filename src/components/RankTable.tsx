@@ -48,7 +48,7 @@ function RankTable({...props} : groupTableProps){
             navigate(`/groups/${data._id}`)
           }} key={idx} className={`cursor-pointer hover:bg-base-300 ${idx===0 ? 'text-warning' : idx === 1 ? 'text-accent' : idx == 2 ? 'text-primary' : '' }`}>
             <th>{idx + 1}</th>
-            <td>
+            <td className='flex items-center gap-1.5'>
                 <div className='avatar'>
                   <div className="w-4 rounded-full"><img src={getAvatarUrl(data._id)} alt="group_img" />
                   </div>
@@ -63,7 +63,13 @@ function RankTable({...props} : groupTableProps){
         props.datas.userDatas.map((data,idx) => (
           <tr key={idx} className={`hover:bg-base-300 ${idx===0 ? 'text-warning' : idx === 1 ? 'text-accent' : idx == 2 ? 'text-primary' : '' }`}>
             <th>{idx + 1}</th>
-            <td>{data.name}</td>
+            <td className='flex items-center gap-1.5'>
+              {data.imgSrc && <div className='avatar'>
+                  <div className="w-4 rounded-full"><img src={data.imgSrc} alt="group_img" />
+                  </div>
+              </div>}
+              <span>{data.name}</span>
+            </td>
             <td><span className='flex justify-end'>{data.score.toLocaleString()}</span></td>
             <td><span className='flex justify-end'>{data.streak.toLocaleString()}</span></td>
           </tr>

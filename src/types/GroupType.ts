@@ -1,4 +1,4 @@
-export interface groupType{
+export type groupType = {
     _id : number,
     groupName : string,
     description: string,
@@ -7,36 +7,7 @@ export interface groupType{
     size: number
 }
 
-export interface GroupInfoType{
-    _id : number
-    groupName : string
-    admin : {
-        handle : string
-        name : string
-    }
-    memberData : Array<MemberType>
-    description : string
-    score : number
-    initialStreak: number
-    currentStreak: number
-    createdAt: string
-    updatedAt: string
-    size: number
-    maxStreak: number
-    todayAllSolved: boolean
-    todaySolvedMembers: Array<any>
-    scoreRank : Number
-    streakRank : Number
-}
-
-export interface MemberType{
-    name : string
-    handle : string
-    streak : number
-    score : number
-}
-
-export interface GroupRank{
+export type GroupRank = {
     groupName: string
     _id: number
     score : number
@@ -44,28 +15,96 @@ export interface GroupRank{
     maxStreak: number
 }
 
-export interface GroupRankResponse{
-    success : boolean
-    result : Array<GroupRank>
+export type GroupInfoType = {
+    _id : number
+    groupName : string
+    admin : {
+        handle : string
+        name : string
+    }
+    applications: Array<{
+        handle : string
+        name : string
+    }>
+    memberData : Array<MemberType>
+    description : string
+    score : number
+    currentStreak: number
+    createdAt : string
+    updatedAt: string
+    size: number
+    maxStreak: number
+    todayAllSolved: boolean
+    todaySolvedMembers: Array<any>
+    scoreRank : number
+    streakRank : number
+    isMember : boolean
 }
 
-export interface GroupMainResponse{
-    success : boolean
+export type MemberType = {
+    name : string
+    handle : string
+    streak : number
+    score : number
+    imgSrc : string
+}
+
+type UserType = {
+    _id: string,
+    name: string,
+    handle: string,
+    joinedGroupList: Array<
+        {
+            _id: number,
+            groupName: string
+        }
+        >
+    maxStreak: number,
+    initialStreak: number,
+    currentStreak: number,
+    initialSolved: number,
+    currentSolved: number,
+    score: number,
+    tier: number,
+    imgSrc: string,
+    updatedAt: string
+}
+
+export type GroupRankResponse = ResponseBase<{
+    result : Array<GroupRank>
+}>
+
+
+export type GroupMainResponse = ResponseBase<{
     score : Array<groupType>
     streak : Array<groupType>
-}
+}>
 
-export interface GroupInfoResponse{
-    success : boolean
+
+export type GroupInfoResponse = ResponseBase<{
     group : GroupInfoType
-}
+}>
 
-export interface GroupListResponse{
-    success : boolean
+export type GroupListResponse = ResponseBase<{
     groups : Array<groupType>
+}>
+
+export type UserRankResponse = ResponseBase<{
+    result : Array<MemberType>
+}>
+
+export type CheckUserResponse = ResponseBase<{
+    user: UserType
+}>
+
+type SuccessResponse = {
+    success : true
 }
 
-export interface UserRankResponse{
-    success : boolean
-    result : Array<MemberType>
+
+type FailResponse = {
+    success : false
+    message : string
 }
+
+export type ResponseBase<T = undefined> = SuccessResponse & T | FailResponse

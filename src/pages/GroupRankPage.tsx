@@ -11,7 +11,7 @@ type paramsType = {
 function GroupRankPage(){
   const {rankType} = useParams() as paramsType
   const {data, isLoading} = useQuery<GroupRankResponse>({
-      queryKey: [`group${rankType}data`],
+      queryKey: [`group/${rankType}/data`],
       queryFn: async () => (await getGroupRank(rankType)),
       staleTime: 1000 * 10
     })

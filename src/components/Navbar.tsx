@@ -1,9 +1,29 @@
 import { Link } from 'react-router'
-import { useAuthStoreHook } from '@/stores/authStore'
 import { authLogout } from '@/apis/apis'
+import { useAuthStoreHook } from '@/stores/authStore'
+import { checkUser } from '@/apis/apis'
+import { useEffect } from 'react'
 
 function Navbar(){
-  const { isLogin, userHandle, logout } = useAuthStoreHook()
+  const {isLogin, userHandle, login, logout} = useAuthStoreHook()
+  useEffect(()=>{
+    if(isLogin){
+      checkUser().then((res)=>{
+        console.log('check')
+        if (res.success === true){
+          login()
+        }
+        else{
+          logout()
+        }
+      }).catch((res)=>{
+        if (res.status === '401'){
+          logout()
+        }
+      })
+    }
+  },[isLogin])
+  
   return (
   <div className="navbar bg-base-200 shadow-sm sticky top-0 z-50">
     <div className="flex-1">
