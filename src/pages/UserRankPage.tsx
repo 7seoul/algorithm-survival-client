@@ -11,7 +11,7 @@ type paramsType = {
 function UserRankPage(){
   const {rankType} = useParams() as paramsType
   const {data, isLoading} = useQuery<UserRankResponse>({
-      queryKey: [`user${rankType}data`],
+      queryKey: [`user/${rankType}/data`],
       queryFn: async () => (await getUserRank(rankType)),
       staleTime: 1000 * 10
     })
