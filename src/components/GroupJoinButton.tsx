@@ -34,7 +34,10 @@ function GroupJoinButton({data}:{data: GroupInfoResponse}){
     
   }
   ,[data])
-  return <button className='w-fit btn btn-soft btn-success' onClick={handleClick}>그룹 신청하기</button>
+  return (<>{mutation.isPending ? 
+    <div className="flex w-full justify-center"><span className="loading loading-spinner loading-xl"></span></div> :
+    <button className='w-fit btn btn-soft btn-success' onClick={handleClick}>그룹 신청하기</button>
+}</>)
 }
 
 export default GroupJoinButton

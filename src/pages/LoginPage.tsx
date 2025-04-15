@@ -74,7 +74,8 @@ function LoginPage(){
             {errors.password && (<span className="fieldset-label">{errors.password.message}</span>)}
           </div>
           {errorMessage && <span className="text-error text-sm font-semibold ml-0.5 self-center">{errorMessage}</span>}
-          <input type="submit" value="Login" className="btn btn-soft btn-success mt-4" />
+          {!mutation.isPending && <input type="submit" value="Login" className="btn btn-soft btn-success mt-4" />}
+          {mutation.isPending && <div className="flex w-full justify-center"><span className="loading loading-spinner loading-xl"></span></div>}
         </div>
       </form>
     </div>

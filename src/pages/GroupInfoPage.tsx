@@ -91,7 +91,7 @@ function GroupInfoPage(){
                             <th>{idx + 1}</th>
                             <td className='text-center'>{user.name}</td>
                             <td className='flex justify-center gap-2'>
-                              {isLoading ? 
+                              {mutation.isPending ? 
                                 <span className="items-center loading loading-spinner loading-xl"></span>
                                 : <button className='btn btn-soft btn-success' onClick={()=>handleAccept(user)}>수락</button>
                               }
