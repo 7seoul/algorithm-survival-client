@@ -7,13 +7,6 @@ export type groupType = {
     size: number
 }
 
-export type GroupRank = {
-    groupName: string
-    _id: number
-    score : number
-    currentStreak: number
-    maxStreak: number
-}
 
 export type GroupInfoType = {
     _id : number
@@ -29,15 +22,17 @@ export type GroupInfoType = {
     memberData : Array<MemberType>
     description : string
     score : number
+    count : number
+    maxStreak: number
     currentStreak: number
     createdAt : string
     updatedAt: string
     size: number
-    maxStreak: number
     todayAllSolved: boolean
     todaySolvedMembers: Array<any>
     scoreRank : number
     streakRank : number
+    countRank : number
     isMember : boolean
 }
 
@@ -47,7 +42,15 @@ export type MemberType = {
     streak : number
     score : number
     imgSrc : string
+    count : number
 }
+
+export type BaseGroupRank = {
+    groupName: string
+    _id: number
+}
+
+export type GroupRank = BaseGroupRank & ({maxStreak:number} | {score:number} | {count:number})
 
 type UserType = {
     _id: string,
@@ -70,6 +73,14 @@ type UserType = {
     updatedAt: string
 }
 
+type BaseUserRank = {
+    name : string
+    handle : string
+    imgSrc : string
+}
+
+export type UserRank= BaseUserRank & ({streak:number} | {score:number} | {count:number})
+
 export type GroupRankResponse = ResponseBase<{
     result : Array<GroupRank>
 }>
@@ -90,7 +101,7 @@ export type GroupListResponse = ResponseBase<{
 }>
 
 export type UserRankResponse = ResponseBase<{
-    result : Array<MemberType>
+    result : Array<UserRank>
 }>
 
 export type CheckUserResponse = ResponseBase<{

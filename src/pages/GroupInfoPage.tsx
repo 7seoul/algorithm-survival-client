@@ -15,7 +15,7 @@ type paramsType = {
 }
 
 function GroupInfoPage(){
-  const [type, setType] = useState<boolean>(false)
+  const [type, setType] = useState<'score' | 'streak' | 'count'>('score')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const { userHandle, isLogin } = useAuthStoreHook()
   const {groupId} = useParams() as paramsType
@@ -112,11 +112,10 @@ function GroupInfoPage(){
             </>
           )}
           
-          <button className='btn btn-soft btn-success' onClick={()=>{setType(value => !value)}}>
-            {type ? 
-              <div>스트릭 순</div> :
-              <div>점수 순</div>  
-            }
+          <button className='btn btn-soft btn-success' onClick={()=>{setType(value => value === 'streak' ? 'score' : value === 'score' ? 'count' : 'streak')}}>
+            {type === 'streak' &&  <div>스트릭 순</div>}
+            {type === 'score' && <div>점수 순</div>}  
+            {type === 'count' && <div>푼 문제 순</div>}  
           </button>
           </div>
         </div>
@@ -127,7 +126,13 @@ function GroupInfoPage(){
           <GroupInfoCard data={data?.group}></GroupInfoCard>
         </article>
         <article className="w-full">
-          <RankTable datas={{type: 'user', userDatas: type ? data.group.memberData.sort((a,b)=>b.streak-a.streak) : data.group.memberData.sort((a,b)=>b.score - a.score) }}>
+          <RankTable rankType={type} datas={{type: 'user', userDatas: (
+            type === 'streak' 
+            ? data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, streak : member.streak})).sort((a,b)=>(b.streak - a.streak)):
+            type === 'count'
+            ? data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, count : member.count})).sort((a,b)=>(b.count - a.count))
+            : data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, score : member.score})).sort((a,b)=>(b.score - a.score))
+            )}}>
           </RankTable>
         </article>
       </div>
