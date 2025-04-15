@@ -39,7 +39,7 @@ export type GroupInfoType = {
 export type MemberType = {
     name : string
     handle : string
-    streak : number
+    maxStreak : number
     score : number
     imgSrc : string
     count : number
@@ -50,7 +50,7 @@ export type BaseGroupRank = {
     _id: number
 }
 
-export type GroupRank = BaseGroupRank & ({maxStreak:number} | {score:number} | {count:number})
+export type GroupRank = BaseGroupRank & RankDataType
 
 type UserType = {
     _id: string,
@@ -79,7 +79,9 @@ type BaseUserRank = {
     imgSrc : string
 }
 
-export type UserRank= BaseUserRank & ({streak:number} | {score:number} | {count:number})
+type RankDataType = {maxStreak:number} | {score:number} | {count:number}
+
+export type UserRank= BaseUserRank & RankDataType
 
 export type GroupRankResponse = ResponseBase<{
     result : Array<GroupRank>

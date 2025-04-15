@@ -3,8 +3,6 @@ import GroupCard from "@/components/GroupCard"
 import { getGroupMain } from "@/apis/apis"
 import { useQuery } from "@tanstack/react-query"
 import { GroupMainResponse } from "@/types/GroupType"
-import { Link } from 'react-router'
-
 
 function MainPage(){
     const {data, isLoading} = useQuery<GroupMainResponse>({
