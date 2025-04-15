@@ -43,6 +43,7 @@ export type MemberType = {
     score : number
     imgSrc : string
     count : number
+    tier: number
 }
 
 export type BaseGroupRank = {
@@ -77,6 +78,7 @@ type BaseUserRank = {
     name : string
     handle : string
     imgSrc : string
+    tier : number
 }
 
 type RankDataType = {maxStreak:number} | {score:number} | {count:number}
