@@ -1,15 +1,16 @@
 import { getAvatarUrl } from '@/apis/apis'
 import { Calendar, Medal } from 'lucide-react'
-import { useNavigate } from 'react-router'
-import { GroupRank, MemberType } from '@/types/GroupType'
+import { Link, useNavigate } from 'react-router'
+import { GroupRank, UserRank } from '@/types/GroupType'
 
 interface groupTableProps {
+  rankType : 'score' | 'count' | 'streak',
   datas : {
     type : 'group',
     groupDatas : Array<GroupRank>
   } | {
     type : 'user',
-    userDatas : Array<MemberType>
+    userDatas : Array<UserRank>
   }
 }
 
@@ -17,32 +18,44 @@ interface groupTableProps {
 
 
 
-function RankTable({...props} : groupTableProps){
+function RankTable({rankType, datas} : groupTableProps){
   const navigate = useNavigate()
   return (
     <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
     <table className="table">
       <thead>
         <tr>
-          <th>순위</th>
+          <th className='w-44'>순위</th>
           <th>이름</th>
-          <th>
-            <div className='flex items-center gap-1 justify-end'>
+          {rankType === 'score' && 
+          <th className='w-2xs'>
+            <div className=' flex items-center gap-1 justify-end'>
               <Medal className='w-4 h-4 text-success' />
               <span>점수</span>
             </div>
           </th>
-          <th>
+          }
+          {rankType === 'streak' && 
+          <th className='w-2xs'>
             <div className='flex items-center gap-1 justify-end'>
               <Calendar className='w-4 h-4 text-success'/>
-              <span>스트릭</span>
+              <span>최장 스트릭</span>
             </div>
           </th>
+          }
+          {rankType === 'count' && 
+          <th className='w-2xs'>
+            <div className='flex items-center gap-1 justify-end'>
+              <Medal className='w-4 h-4 text-success' />
+              <span>푼 문제 수</span>
+            </div>
+          </th>
+          }
         </tr>
       </thead>
     <tbody>
-      { props.datas.type === 'group' ? (
-        props.datas.groupDatas.map((data,idx)=>(
+      { datas.type === 'group' ? (
+        datas.groupDatas.map((data,idx)=>(
           <tr onClick={(e)=>{
             e.preventDefault()
             navigate(`/groups/${data._id}`)
@@ -54,13 +67,14 @@ function RankTable({...props} : groupTableProps){
                   </div>
                 </div>
                 <span>{data.groupName}</span></td>
-            <td><span className='flex justify-end'>{data.score.toLocaleString()}</span></td>
-            <td><span className='flex justify-end'>{data.maxStreak.toLocaleString()}</span></td>
+            {'score' in data && <td><span className='flex justify-end'>{data.score.toLocaleString()}점</span></td>}
+            {'maxStreak' in data && <td><span className='flex justify-end'>{data.maxStreak.toLocaleString()}일</span></td>}
+            {'count' in data && <td><span className='flex justify-end'>{data.count.toLocaleString()}개</span></td>}
           </tr>
         )) 
       )
       :(
-        props.datas.userDatas.map((data,idx) => (
+        datas.userDatas.map((data,idx) => (
           <tr key={idx} className={`hover:bg-base-300 ${idx===0 ? 'text-warning' : idx === 1 ? 'text-accent' : idx == 2 ? 'text-primary' : '' }`}>
             <th>{idx + 1}</th>
             <td className='flex items-center gap-1.5'>
@@ -68,10 +82,11 @@ function RankTable({...props} : groupTableProps){
                   <div className="w-4 rounded-full"><img src={data.imgSrc} alt="group_img" />
                   </div>
               </div>}
-              <span>{data.name}</span>
+              <Link target='_blank' to={`https://solved.ac/profile/${data.name}`}><span>{data.name}</span></Link>
             </td>
-            <td><span className='flex justify-end'>{data.score.toLocaleString()}</span></td>
-            <td><span className='flex justify-end'>{data.streak.toLocaleString()}</span></td>
+            {'score' in data && <td><span className='flex justify-end'>{data.score.toLocaleString()}점</span></td>}
+            {'streak' in data && <td><span className='flex justify-end'>{data.streak.toLocaleString()}일</span></td>}
+            {'count' in data && <td><span className='flex justify-end'>{data.count.toLocaleString()}개</span></td>}
           </tr>
         ))
       )

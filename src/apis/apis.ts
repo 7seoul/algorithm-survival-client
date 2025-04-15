@@ -8,11 +8,11 @@ const api = ky.create({
   credentials: "include",
 });
 
-export const getGroupRank = async (type: 'score' | 'streak'): Promise<GroupRankResponse> => {
+export const getGroupRank = async (type: 'score' | 'streak' | 'count'): Promise<GroupRankResponse> => {
   return await api.get(`rankings/groups/${type}`).json();
 }
 
-export const getUserRank = async (type: 'score' | 'streak'): Promise<UserRankResponse> => {
+export const getUserRank = async (type: 'score' | 'streak' | 'count'): Promise<UserRankResponse> => {
   return await api.get(`rankings/users/${type}`).json();
 }
 
