@@ -39,7 +39,6 @@ function MainPage(){
             )
         }
         </section>
-        <Link className='btn btn-success w-2xs self-center' to={'/groups'}>전체 그룹 보기</Link>
     </>)
 }
 

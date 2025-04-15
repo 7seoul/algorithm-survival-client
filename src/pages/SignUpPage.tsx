@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { useMutation } from "@tanstack/react-query"
 import { getSignUpToken, SignUp } from "@/apis/apis"
 import { useAuthStore } from '@/stores/authStore'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { Copy } from 'lucide-react'
 
 
@@ -146,7 +146,7 @@ function SignUpPage(){
               <Copy onClick={()=>{CopyHandler()}} className={`absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer text-zinc-400 transition-colors hover:text-zinc-100 ${!isToken && 'hidden'}`} size={10}/>
             </div>
             {errors.token && (<span className="validator-hint opacity-70 mb-0.5">{errors.token.message}</span>)}
-            <p className='fieldset-label mb-1'>{'암호키를 발급 후 solved.ac > 프로필 편집 > 소개란에 기입해주세요.'}</p>
+            <p className='fieldset-label mt-1'>암호키를 발급 후<Link className="link link-success opacity-80" target="_blank" to={`https://solved.ac/profile/${getValues('handle')}`}>solved.ac</Link> {' > 프로필 편집 > 소개란에 기입해주세요.'}</p>
           </div>
           <div className="flex flex-col">
             <label className="fieldset-label mb-1">닉네임</label>

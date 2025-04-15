@@ -40,7 +40,7 @@ function Navbar(){
               logout()
               authLogout()
             }}>Logout</button></li>
-            <li><Link to='/'>{userHandle}</Link></li>
+            <li><Link target='_blank' to={`https://solved.ac/profile/${userHandle}`}>{userHandle}</Link></li>
           </>
         ) :(
           <>
