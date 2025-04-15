@@ -71,3 +71,7 @@ export const createGroup = async (inputData : {groupName : string, description: 
     json: inputData
   }).json()
 }
+
+export const rejectGroup = async({groupId, handle} : {groupId: number, handle: string}): Promise<GroupInfoResponse> => {
+  return await api.post(`groups/${groupId}/applications/${handle}`).json()
+}

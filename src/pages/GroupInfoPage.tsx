@@ -1,4 +1,4 @@
-import { acceptGroup, getGroupInfo } from '@/apis/apis'
+import { acceptGroup, getGroupInfo, rejectGroup } from '@/apis/apis'
 import GroupInfoCard from '@/components/GroupInfoCard'
 import GroupJoinButton from '@/components/GroupJoinButton'
 import Modal from '@/components/Modal'
@@ -29,6 +29,30 @@ function GroupInfoPage(){
     mutationKey: [`Accept join`],
     mutationFn: acceptGroup
   })
+  const rejectMutation = useMutation({
+    mutationKey: ['reject join'],
+    mutationFn: rejectGroup
+  })
+
+  const handleReject = useCallback((user:{handle: string, name: string})=>{
+    if(data?.success  === true){
+      rejectMutation.mutate({groupId: data.group._id, handle: user.handle},{
+        onSuccess : (data)=>{
+          if (data.success ===true){
+            refetch()
+            alert('거절되었습니다.')
+          }
+          else{
+            refetch()
+            alert('예기치 못한 에러가 발생했습니다.')
+          }
+        },
+        onError : ()=>{
+          alert('예기치 못한 에러가 발생했습니다.')
+        }
+      })
+    }
+  },[data])
 
   const handleAccept = useCallback((user:{handle : string, name: string})=>{
     if(data?.success === true){
@@ -42,6 +66,9 @@ function GroupInfoPage(){
             refetch()
             alert('예기치 못한 에러가 발생했습니다.')
           }
+        },
+        onError: ()=>{
+          alert('예기치 못한 에러가 발생했습니다.')
         }
       })
     }
@@ -76,11 +103,11 @@ function GroupInfoPage(){
                   <button className='btn btn-soft btn-success' onClick={()=>{setIsOpen(true)}}>그룹 신청 목록</button>
                   <Modal isOpen={isOpen} onClose={()=>{setIsOpen(false)}}>
                     { data.group.applications && data.group.applications.length > 0 ? (
-                      <div className="overflow-x-auto bg-base-100 min-w-96">
+                      <div className="overflow-x-auto bg-base-100 min-w-96 min-h-96">
                       <table className="table">
                         <thead>
                           <tr>
-                            <th></th>
+                            <th>번호</th>
                             <th className='text-center'>이름</th>
                             <th className='text-center'>참가 수락</th>
                           </tr>
@@ -91,11 +118,13 @@ function GroupInfoPage(){
                             <th>{idx + 1}</th>
                             <td className='text-center'>{user.name}</td>
                             <td className='flex justify-center gap-2'>
-                              {mutation.isPending ? 
+                              {(mutation.isPending || rejectMutation.isPending) ? 
                                 <span className="items-center loading loading-spinner loading-xl"></span>
-                                : <button className='btn btn-soft btn-success' onClick={()=>handleAccept(user)}>수락</button>
+                                : (<>
+                                <button className='btn btn-soft btn-success' onClick={()=>handleAccept(user)}>수락</button>
+                                <button className='btn btn-soft btn-error' onClick={()=>handleReject(user)}>거절</button>
+                                </>)
                               }
-                              {/* <button className='btn btn-soft btn-error'>거절</button> */}
                             </td>
                           </tr>
                         ))}
