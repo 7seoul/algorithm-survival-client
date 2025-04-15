@@ -58,7 +58,6 @@ function SignUpPage(){
     mutationKey: ['SignUp'],
     mutationFn: SignUp
   })
-  
   const handleGetTokken = useCallback((e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
     e.preventDefault()
     SignUPTokenMutation.mutate({handle : getValues('handle')}, {
@@ -112,7 +111,7 @@ function SignUpPage(){
         }
       },
       onError: (error)=>{
-        if (error.response.status === 500){
+        if (error.response.status === 404){
           setErrorMessage('존재하지 않는 solved.ac 계정입니다.')
         }
         else if (error.response.status === 409){
@@ -164,7 +163,8 @@ function SignUpPage(){
             {errors.passwordCheck && (<span className="validator-hint opacity-70">{errors.passwordCheck.message}</span>)}
           </div>
           {errorMessage && <span className="text-error text-sm font-semibold ml-0.5 self-center">{errorMessage}</span>}
-          <input type="submit" value="SignUp" className="btn btn-success mt-4"/>
+          { !SignUpMutation.isPending && <input type="submit" value="SignUp" className="btn btn-success mt-4"/>}
+          { SignUpMutation.isPending && <div className="flex w-full justify-center"><span className="loading loading-spinner loading-xl"></span></div>}
         </div>
       </form>
     </div>

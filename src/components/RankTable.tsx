@@ -82,7 +82,7 @@ function RankTable({rankType, datas} : groupTableProps){
                   <div className="w-4 rounded-full"><img src={data.imgSrc} alt="group_img" />
                   </div>
               </div>}
-              <Link target='_blank' to={`https://solved.ac/profile/${data.name}`}><span>{data.name}</span></Link>
+              <Link target='_blank' to={`https://solved.ac/profile/${data.handle}`}><span>{data.name}</span></Link>
             </td>
             {'score' in data && <td><span className='flex justify-end'>{data.score.toLocaleString()}점</span></td>}
             {'maxStreak' in data && <td><span className='flex justify-end'>{data.maxStreak.toLocaleString()}일</span></td>}

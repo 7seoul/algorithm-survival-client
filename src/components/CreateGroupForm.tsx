@@ -67,7 +67,8 @@ function CreateGroupForm(){
             {errors.description && (<span className="fieldset-label">{errors.description.message}</span>)}
           </div>
           {errorMessage && <span className="text-error text-sm font-semibold ml-0.5 self-center">{errorMessage}</span>}
-          <input type="submit" value="생성하기" className="btn btn-soft btn-success mt-4" />
+          {!mutation.isPending && <input type="submit" value="생성하기" className="btn btn-soft btn-success mt-4" />}
+          {mutation.isPending && <div className="flex w-full justify-center"><span className="loading loading-spinner loading-xl"></span></div>}
         </div>
       </form>
     </div>
