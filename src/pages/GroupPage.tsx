@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import { getGroupList } from '@/apis/apis'
 import { GroupListResponse } from '@/types/GroupType'
 import GroupCard from '@/components/GroupCard'
-import { useState } from 'react'
-import { useAuthStoreHook } from '@/stores/authStore'
-import Modal from '@/components/Modal'
-import CreateGroupForm from '@/components/CreateGroupForm'
+// import { useState } from 'react'
+// import { useAuthStoreHook } from '@/stores/authStore'
+// import Modal from '@/components/Modal'
+// import CreateGroupForm from '@/components/CreateGroupForm'
 
 function GroupPage(){
-  const {isLogin} = useAuthStoreHook()
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  // const {isLogin} = useAuthStoreHook()
+  // const [isOpen, setIsOpen] = useState<boolean>(false)
   const {data, isLoading} = useQuery<GroupListResponse>({
     queryKey: [`groupList`],
     queryFn: async () => (await getGroupList()),
