@@ -85,7 +85,7 @@ function RankTable({rankType, datas} : groupTableProps){
               <Link target='_blank' to={`https://solved.ac/profile/${data.name}`}><span>{data.name}</span></Link>
             </td>
             {'score' in data && <td><span className='flex justify-end'>{data.score.toLocaleString()}점</span></td>}
-            {'streak' in data && <td><span className='flex justify-end'>{data.streak.toLocaleString()}일</span></td>}
+            {'maxStreak' in data && <td><span className='flex justify-end'>{data.maxStreak.toLocaleString()}일</span></td>}
             {'count' in data && <td><span className='flex justify-end'>{data.count.toLocaleString()}개</span></td>}
           </tr>
         ))
