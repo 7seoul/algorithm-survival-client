@@ -3,6 +3,7 @@ import { authLogout } from '@/apis/apis'
 import { useAuthStoreHook } from '@/stores/authStore'
 import { checkUser } from '@/apis/apis'
 import { useEffect } from 'react'
+import { Network } from 'lucide-react'
 
 function Navbar(){
   const {isLogin, userHandle, login, logout} = useAuthStoreHook()
@@ -27,7 +28,10 @@ function Navbar(){
   return (
   <div className="navbar bg-base-200 shadow-sm sticky top-0 z-50">
     <div className="flex-1">
-      <Link className="btn btn-ghost text-xl" to='/'>SurvivAlgo</Link>
+      <Link className="btn btn-ghost text-xl overflow-hidden text-success" to='/'>
+        <Network />
+        SurvivAlgo
+      </Link>
     </div>
     <div className="flex-none">
       <ul className="menu menu-horizontal px-1">
@@ -49,8 +53,6 @@ function Navbar(){
           </>
         )
         }
-
-        
       </ul>
     </div>
   </div>

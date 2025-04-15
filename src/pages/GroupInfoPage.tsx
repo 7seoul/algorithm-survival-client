@@ -157,10 +157,10 @@ function GroupInfoPage(){
         <article className="w-full">
           <RankTable rankType={type} datas={{type: 'user', userDatas: (
             type === 'streak' 
-            ? data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, maxStreak : member.maxStreak})).sort((a,b)=>(b.maxStreak - a.maxStreak)):
+            ? data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, maxStreak : member.maxStreak, tier: member.tier})).sort((a,b)=>(b.maxStreak - a.maxStreak)):
             type === 'count'
-            ? data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, count : member.count})).sort((a,b)=>(b.count - a.count))
-            : data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, score : member.score})).sort((a,b)=>(b.score - a.score))
+            ? data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, count : member.count, tier: member.tier})).sort((a,b)=>(b.count - a.count))
+            : data.group.memberData.map((member)=>({handle : member.handle, name : member.name, imgSrc: member.imgSrc, score : member.score, tier: member.tier})).sort((a,b)=>(b.score - a.score))
             )}}>
           </RankTable>
         </article>

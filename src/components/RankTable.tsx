@@ -63,7 +63,7 @@ function RankTable({rankType, datas} : groupTableProps){
             <th>{idx + 1}</th>
             <td className='flex items-center gap-1.5'>
                 <div className='avatar'>
-                  <div className="w-4 rounded-full"><img src={getAvatarUrl(data._id)} alt="group_img" />
+                  <div className="w-6 rounded-full"><img src={getAvatarUrl(data._id)} alt="group_img" />
                   </div>
                 </div>
                 <span>{data.groupName}</span></td>
@@ -78,8 +78,11 @@ function RankTable({rankType, datas} : groupTableProps){
           <tr key={idx} className={`hover:bg-base-300 ${idx===0 ? 'text-warning' : idx === 1 ? 'text-accent' : idx == 2 ? 'text-primary' : '' }`}>
             <th>{idx + 1}</th>
             <td className='flex items-center gap-1.5'>
+              {data.tier &&
+                  <div className="w-4"><img src={`https://static.solved.ac/tier_small/${data.tier}.svg`} alt="group_img" />
+              </div>}
               {data.imgSrc && <div className='avatar'>
-                  <div className="w-4 rounded-full"><img src={data.imgSrc} alt="group_img" />
+                  <div className="w-6 rounded-full"><img src={data.imgSrc} alt="group_img" />
                   </div>
               </div>}
               <Link target='_blank' to={`https://solved.ac/profile/${data.handle}`}><span>{data.name}</span></Link>
